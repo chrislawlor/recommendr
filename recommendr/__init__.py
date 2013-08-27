@@ -59,8 +59,6 @@ def get_user_based_recommendations(reviewer_id, num=20, similarity=sim_distance)
     # get movies reviewer hasn't rated
     unrated_movie_ids = db.get_unrated_movies_for(reviewer_id)
 
-    movie_count = len(unrated_movie_ids)
-
     movie_idx = 0
     for movie_id in unrated_movie_ids:
 
