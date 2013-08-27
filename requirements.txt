@@ -1,0 +1,2 @@
+redis==2.7.6
+eventlet==0.13.0
