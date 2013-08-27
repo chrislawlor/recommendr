@@ -46,6 +46,6 @@ def main(full=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--full', help="Load the full training dataset",
-                        action='store_false')
+                        action='store_true')
     args = parser.parse_args()
     main(args.full)
