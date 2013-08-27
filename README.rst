@@ -8,9 +8,6 @@ Recommendr
 .. image:: https://travis-ci.org/chrislawlor/recommendr.png?branch=master
         :target: https://travis-ci.org/chrislawlor/recommendr
 
-.. image:: https://pypip.in/d/recommendr/badge.png
-        :target: https://crate.io/packages/recommendr?version=latest
-
 
 Movie recommendation engine.
 
