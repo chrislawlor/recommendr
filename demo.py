@@ -1,17 +1,9 @@
 import random
 
-from recommendr import db, calculate_similar_movies, get_user_based_recommendations
-
-
-def init():
-    calculate_similar_movies()
+from recommendr import db, get_user_based_recommendations
 
 
 def main():
-    initialized = raw_input("Initialize the database?")
-    if initialized.lower() == 'y':
-        init()
-
     user_id = raw_input("What is your user id? Enter 10000 if you don't know:")
 
     unrated = list(db.get_unrated_movies_for(user_id))
