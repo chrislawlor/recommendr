@@ -75,6 +75,7 @@ Key Code Points
 and rating information
 
 ::
+	
 	recommendr.get_user_based_recommendations(reviewer_id, num=20, similarity=sim_distance)
 
 returns the top recommendations for a given user. It defaults to using
@@ -88,4 +89,5 @@ Test Suite
 I haz one:
 
 ::
+	
 	python setup.py test
