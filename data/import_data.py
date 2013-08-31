@@ -1,3 +1,7 @@
+"""
+Import data from the MovieLens dataset, which has first been prepared by
+running split.py.
+"""
 import argparse
 import sys
 import os

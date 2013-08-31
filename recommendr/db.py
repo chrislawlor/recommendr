@@ -22,6 +22,10 @@ def set_to_ints(values):
 
 
 class RedisBackend(object):
+    """
+    Movie database storage and access functions, backed by Redis. Currently,
+    only 'create' and 'retrieve' type functions are implemented.
+    """
 
     def __init__(self, host='localhost', port=6379, db=1):
         self.redis = redis.StrictRedis(host=host, port=port, db=db)

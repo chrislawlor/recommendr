@@ -1,3 +1,7 @@
+"""
+Functions for performing similarity calculations.
+"""
+
 import sys
 
 from eventlet import GreenPool
@@ -10,15 +14,25 @@ db = RedisBackend(host=REDIS_HOST, port=REDIS_PORT, db=REDIS_DB)
 
 
 def get_reviewer_similarity(reviewer_1, reviewer_2, sim_function=sim_pearson):
+    """
+    Returns the similarity coefficient for two reviewers, based on common
+    movies they have rated.
+    """
     return sim_function(db.get_common_ratings_for_reviewers(reviewer_1,
                                                             reviewer_2))
 
 
 def get_movie_similarity(movie_1, movie_2, sim_function=sim_pearson):
+    """
+    Returns the similarity coefficient for two movies.
+    """
     return sim_function(db.get_common_ratings_for_movies(movie_1, movie_2))
 
 
 def closest_reviewers(reviewer_id, n=5, similarity=sim_pearson):
+    """
+    Returns the top n most similar reviewers to the given reviewer.
+    """
     others = db.get_reviewers()
     scores = [(get_reviewer_similarity(reviewer_id, other, sim_function=similarity), other)
               for other in others if other != reviewer_id]
@@ -28,6 +42,9 @@ def closest_reviewers(reviewer_id, n=5, similarity=sim_pearson):
 
 
 def closest_movies(movie_id, n=5, similarity=sim_pearson):
+    """
+    Returns the top n closest movies to the given movie.
+    """
     movies = db.get_movies()
     scores = [(get_movie_similarity(movie_id, other, sim_function=similarity), other)
               for other in movies if other != movie_id]
@@ -37,12 +54,19 @@ def closest_movies(movie_id, n=5, similarity=sim_pearson):
 
 
 def do_movie_similarity_calculation(movie_id, n=10, similarity=sim_pearson):
+    """
+    Process and save the similarity score for the given movie.
+    """
     sys.stdout.write("Processing {0}\n".format(movie_id))
     scores = closest_movies(movie_id, n=n, similarity=similarity)
     db.save_similarity_scores(movie_id, scores)
 
 
 def calculate_similar_movies(n=10, similarity=sim_pearson):
+    """
+    Calculate and save similarity scores for all movies in the database. this
+    will take a long time. Algorithm is parallelized using a greenlet pool.
+    """
     pool = GreenPool(size=30)
     movies = db.get_movies()
     movie_count = len(movies)
@@ -53,6 +77,11 @@ def calculate_similar_movies(n=10, similarity=sim_pearson):
 
 
 def get_user_based_recommendations(reviewer_id, num=20, similarity=sim_distance):
+    """
+    Get movie recommendations for the given user. Returns the top num movies,
+    using the given similarity function. This function does not make use
+    of any pre-calculated movie similarity scores.
+    """
     totals = {}  # where totals[movie_id] = sum of (ratings * similarity)
     sim_sums = {}
 

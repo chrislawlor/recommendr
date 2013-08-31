@@ -1,3 +1,7 @@
+"""
+Similarity functions. All functions return a score from 0 to 1, where 1
+means most similar and 0 means least similar.
+"""
 from math import sqrt
 
 

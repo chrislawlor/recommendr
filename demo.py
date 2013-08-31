@@ -1,3 +1,13 @@
+"""
+Simple console-based demo program for rating movies and receiving
+movie recommendations.
+
+Run::
+
+    python demo.py --help
+
+for usage.
+"""
 import argparse
 import random
 
