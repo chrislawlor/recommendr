@@ -18,7 +18,3 @@ def get_env_var(varname, default=None):
 REDIS_HOST = get_env_var("REDIS_HOST", 'localhost')
 REDIS_PORT = int(get_env_var("REDIS_PORT", 6379))
 REDIS_DB = int(get_env_var("REDIS_DB", 1))
-
-REDIS_TEST_HOST = REDIS_HOST
-REDIS_TEST_PORT = REDIS_PORT
-REDIS_TEST_DB = REDIS_DB + 1

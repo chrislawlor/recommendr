@@ -30,8 +30,11 @@ class RedisBackend(object):
     """
 
     def __init__(self, host=config.REDIS_HOST, port=config.REDIS_PORT,
-                 db=config.REDIS_DB):
-        self.redis = redis.StrictRedis(host=host, port=port, db=db)
+                 db=config.REDIS_DB, client=None):
+        if client:
+            self.redis = client
+        else:
+            self.redis = redis.StrictRedis(host=host, port=port, db=db)
 
     def clear(self):
         """

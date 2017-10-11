@@ -1,15 +1,13 @@
+import fakeredis
+
 from recommendr.db import RedisBackend
-
-from recommendr.config import REDIS_TEST_HOST, REDIS_TEST_PORT, REDIS_TEST_DB
-
 
 class TestRedisBackend:
 
     @classmethod
     def setup_class(cls):
-        backend = RedisBackend(host=REDIS_TEST_HOST,
-                               port=REDIS_TEST_PORT,
-                               db=REDIS_TEST_DB)
+        r = fakeredis.FakeStrictRedis()
+        backend = RedisBackend(client=r)
 
         # Start with a clean DB
         backend.clear()
