@@ -1,6 +1,9 @@
+__version__ = '0.0.1'
+
 """
 Functions for performing similarity calculations.
 """
+
 
 import sys
 
