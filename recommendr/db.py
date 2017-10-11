@@ -3,6 +3,8 @@ Persistant storage for movies and reviews, using Redis.
 """
 import redis
 
+from . import config
+
 
 def int_or_none(value):
     if value is None:
@@ -27,7 +29,8 @@ class RedisBackend(object):
     only 'create' and 'retrieve' type functions are implemented.
     """
 
-    def __init__(self, host='localhost', port=6379, db=1):
+    def __init__(self, host=config.REDIS_HOST, port=config.REDIS_PORT,
+                 db=config.REDIS_DB):
         self.redis = redis.StrictRedis(host=host, port=port, db=db)
 
     def clear(self):
